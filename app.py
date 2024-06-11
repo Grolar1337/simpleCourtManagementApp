@@ -8,7 +8,7 @@ from models import *
 
 app= Sanic("app")
 
-app.static('/', './frontend/')
+app.static('/', './frontend/index.html')
 
 app.config.ADMIN_CODE= ''.join(random.choices(string.ascii_uppercase + string.digits, k=24))
 logger.info('Here is your admin code: '+app.config.ADMIN_CODE)
