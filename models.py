@@ -14,7 +14,7 @@ class User(Model):
     email= fields.CharField(max_length = 200, null = False, unique = True)
     admin= fields.BooleanField()
     password= fields.CharField(max_length=100, null=False)
-    invitation= fields.CharField(null=True)
+    invitation= fields.CharField(max_length= 32, null=True)
 
 
 class Booking(Model):

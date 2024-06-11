@@ -8,14 +8,15 @@ from models import *
 
 app= Sanic("app")
 
+app.static('/', 'frontend/')
 
 app.config.ADMIN_CODE= ''.join(random.choices(string.ascii_uppercase + string.digits, k=24))
-logger.info('Here is your admin code: ', app.config.ADMIN_CODE)
+logger.info('Here is your admin code: '+app.config.ADMIN_CODE)
 #https://sanic.dev/en/guide/running/configuration.html#loading
 
 
 register_tortoise(
-    app, db_url="sqlite://database.sqlite3", modules={"models": ["models"]}, generate_schemas=True
+    app, db_url="sqlite://database/database.sqlite3", modules={"models": ["models"]}, generate_schemas=True
 )
 
 
