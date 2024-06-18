@@ -5,30 +5,65 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
+
 </head>
 
 <body class="bg-gray-100">
 
-  <div class="mb-36">
-  <nav class=" bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
-    <div class="max-w-screen-xl flex flex-wrap items-start justify-between mx-auto p-4">
+  <div class=" mb-4">
+    <div class="sm:hidden">
+      <label for="Tab" class="sr-only">Tab</label>
+  
+      <select id="Tab" class="w-full rounded-md border-gray-200">
+        <option selected>Takvim</option>
+        <option>Ayarlar</option>
+
+      </select>
+    </div>
+  
+    <div class="ml-36 mb-6 mt-4">
+
+      
+
+<div>
+  <div class="sm:hidden">
+    <label for="Tab" class="sr-only">Tab</label>
+
+    <select id="Tab" class="w-full rounded-md border-gray-200">
+      <option selected>Takvim</option>
+      <option>Ayarlar</option>
+    </select>
+  </div>
+
+  <div class="hidden sm:block">
+    <nav class="flex gap-6" aria-label="Tabs">
+      <a
+        href="index.html"
+        class="shrink-0 rounded-lg p-2 text-xl font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+      >
+        Takvim
+      </a>
+
+      <a
+        href="account.html"
+        class="shrink-0 rounded-lg p-2 text-xl font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+      >
+        Ayarlar
+      </a>
 
 
-    <div class="items-start justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
-      <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-        <li>
-          <a href="/account.html" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Takvim</a>
-        </li>
-        <li>
-          <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Hesap</a>
-        </li>
-        <li>
-          <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Kortlar</a>
-        </li>
-      </ul>
-    </div>
-    </div>
-  </nav>
+    </nav>
+  </div>
+</div>
+
+
+
+
+
+
+
+      </div>
+
   </div>
   <div class="mt-12 bg-gray-100 flex items-start justify-start">
     <div class="flex lg:w-7/12 md:w-9/12 sm:w-10/12 mx-auto p-4 space-x-4">
@@ -96,7 +131,7 @@
         <label for="court" class="block mb-2 text-sm font-medium text-black mt-4">Kort seçiniz</label>
         <select id="court"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <option value="US">United States</option>
+          <option value="US">Kapali kort 2</option>
           <option value="CA">Canada</option>
           <option value="FR">France</option>
           <option value="DE">Germany</option>
@@ -109,7 +144,7 @@
         </div>
         <div class="flex justify-end mt-4">
           <button type="submit" id="submit"
-            class="px-4 py-2 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">Submit</button>
+            class="px-4 py-2 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">Kaydet</button>
         </div>
       </div>
     </div>
@@ -117,100 +152,70 @@
   </div>
 
 
-  <div class="bg-white border border-gray-200 divide-y divide-gray-200 rounded-xl mt-12 mr-36 ml-36">
-    <details class="p-6 group" open>
-        <summary class="flex items-center justify-between cursor-pointer">
-            <h5 class="text-lg font-medium text-gray-900">
-                Lorem ipsum dolor sit amet consectetur adipisicing?
-            </h5>
 
-            <span class="relative flex-shrink-0 ml-1.5 w-5 h-5">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                    class="absolute inset-0 w-5 h-5 opacity-100 group-open:opacity-0" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
 
-                <svg xmlns="http://www.w3.org/2000/svg"
-                    class="absolute inset-0 w-5 h-5 opacity-0 group-open:opacity-100" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-            </span>
-        </summary>
 
-        <p class="mt-4 leading-relaxed text-gray-700">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab hic veritatis
-            molestias culpa in, recusandae laboriosam neque aliquid libero nesciunt
-            voluptate dicta quo officiis explicabo consequuntur distinctio corporis
-            earum similique!
+
+  <div class="max-w-screen-md w-8/12 p-10  mx-auto hs-accordion-group">
+    <div class="hs-accordion active" id="hs-basic-heading-one">
+      <button class="hs-accordion-toggle hs-accordion-active:text-blue-600 py-3 inline-flex items-center gap-x-3 w-full font-semibold text-start text-gray-800 hover:text-gray-500 rounded-lg disabled:opacity-50 disabled:pointer-events-none" aria-controls="hs-basic-collapse-one">
+        <svg class="hs-accordion-active:hidden block size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="M12 5v14"></path>
+        </svg>
+        <svg class="hs-accordion-active:block hidden size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+        </svg>
+        test
+      </button>
+      <div id="hs-basic-collapse-one" class="hs-accordion-content w-full overflow-hidden transition-[height] duration-300" aria-labelledby="hs-basic-heading-one">
+        <p class="text-gray-800">
+          <em>deneme deneme
         </p>
-    </details>
-
-    <details class="p-6 group">
-        <summary class="flex items-center justify-between cursor-pointer">
-            <h5 class="text-lg font-medium text-gray-900">
-                Lorem ipsum dolor sit amet consectetur adipisicing?
-            </h5>
-
-            <span class="relative flex-shrink-0 ml-1.5 w-5 h-5">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                    class="absolute inset-0 w-5 h-5 opacity-100 group-open:opacity-0" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-
-                <svg xmlns="http://www.w3.org/2000/svg"
-                    class="absolute inset-0 w-5 h-5 opacity-0 group-open:opacity-100" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-            </span>
-        </summary>
-
-        <p class="mt-4 leading-relaxed text-gray-700">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab hic veritatis
-            molestias culpa in, recusandae laboriosam neque aliquid libero nesciunt
-            voluptate dicta quo officiis explicabo consequuntur distinctio corporis
-            earum similique!
+      </div>
+    </div>
+  
+    <div class="hs-accordion" id="hs-basic-heading-two">
+      <button class="hs-accordion-toggle hs-accordion-active:text-blue-600 py-3 inline-flex items-center gap-x-3 w-full font-semibold text-start text-gray-800 hover:text-gray-500 rounded-lg disabled:opacity-50 disabled:pointer-events-none" aria-controls="hs-basic-collapse-two">
+        <svg class="hs-accordion-active:hidden block size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="M12 5v14"></path>
+        </svg>
+        <svg class="hs-accordion-active:block hidden size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+        </svg>
+        Accordion #2
+      </button>
+      <div id="hs-basic-collapse-two" class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300" aria-labelledby="hs-basic-heading-two">
+        <p class="text-gray-800">
+          <em>This is the third item's accordion body.</em> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions.
         </p>
-    </details>
-
-    <details class="p-6 group">
-        <summary class="flex items-center justify-between cursor-pointer">
-            <h5 class="text-lg font-medium text-gray-900">
-                Lorem ipsum dolor sit amet consectetur adipisicing?
-            </h5>
-
-            <span class="relative flex-shrink-0 ml-1.5 w-5 h-5">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                    class="absolute inset-0 w-5 h-5 opacity-100 group-open:opacity-0" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-
-                <svg xmlns="http://www.w3.org/2000/svg"
-                    class="absolute inset-0 w-5 h-5 opacity-0 group-open:opacity-100" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-            </span>
-        </summary>
-
-        <p class="mt-4 leading-relaxed text-gray-700">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab hic veritatis
-            molestias culpa in, recusandae laboriosam neque aliquid libero nesciunt
-            voluptate dicta quo officiis explicabo consequuntur distinctio corporis
-            earum similique!
+      </div>
+    </div>
+  
+    <div class="hs-accordion" id="hs-basic-heading-three">
+      <button class="hs-accordion-toggle hs-accordion-active:text-blue-600 py-3 inline-flex items-center gap-x-3 w-full font-semibold text-start text-gray-800 hover:text-gray-500 rounded-lg disabled:opacity-50 disabled:pointer-events-none" aria-controls="hs-basic-collapse-three">
+        <svg class="hs-accordion-active:hidden block size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="M12 5v14"></path>
+        </svg>
+        <svg class="hs-accordion-active:block hidden size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+        </svg>
+        Accordion #3
+      </button>
+      <div id="hs-basic-collapse-three" class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300" aria-labelledby="hs-basic-heading-three">
+        <p class="text-gray-800">
+          <em>This is the third item's accordion body.</em> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions.
         </p>
-    </details>
-</div>
+      </div>
+    </div>
+  </div>  
+  <script src="https://cdn.jsdelivr.net/npm/@preline/accordion@2.3.0/index.min.js"></script>
+
+
+
+
 
   
   <script>

@@ -1,11 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Edit</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
 </head>
-<body>
-    <h1>hi</h1>
+<body class="flex items-start  min-h-screen pt-5">
+    <div class="absolute mb-4">
+        <div class="sm:hidden">
+          <label for="Tab" class="sr-only">Tab</label>
+      
+          <select id="Tab" class="w-full rounded-md border-gray-200">
+            <option>Settings</option>
+            <option>Messages</option>
+            <option>Archive</option>
+            <option select>Notifications</option>
+          </select>
+        </div>
+      
+        <div class="hidden sm:block">
+          <div class="border-b border-gray-200">
+            <nav class="-mb-px flex gap-6">
+              <a
+                href="/"
+                class="shrink-0 border border-transparent p-3 text-sm font-medium text-gray-500 hover:text-gray-700"
+              >
+                Takvim
+              </a>
+      
+              <a
+                href="account.html"
+                class="shrink-0 border border-transparent p-3 text-sm font-medium text-gray-500 hover:text-gray-700"
+              >
+                Ayarlar
+              </a>
+      
+
+            </nav>
+          </div>
+        </div>
+      </div>
+      
+  <div class="ml-6 mt-24 w-full max-w-xl mx-4">
+    <h1 class="text-3xl  mb-8">Edit Profile</h1>
+
+    <!-- Username Edit -->
+    <div class="mb-6">
+      <label for="username" class="block text-lg font-semibold mb-2">Username</label>
+      <input type="text" id="username" class="input-field border border-gray-300 p-3 rounded-lg w-1/2 focus:ring-2 focus:ring-indigo-500" placeholder="Enter your username" value="currentUsername">
+    </div>
+
+    <!-- Email Edit -->
+    <div class="mb-6">
+      <label for="email" class="block text-lg font-semibold mb-2">Email</label>
+      <input type="email" id="email" class="input-field border border-gray-300 p-3 rounded-lg w-2/3 focus:ring-2 focus:ring-indigo-500" placeholder="Enter your email" value="currentEmail@example.com">
+    </div>
+
+    <!-- Password Change -->
+    <div class="mb-6">
+      <label for="oldPassword" class="block text-lg font-semibold mb-2">Old Password</label>
+      <input type="password" id="oldPassword" class="input-field border border-gray-300 p-3 rounded-lg w-1/2 focus:ring-2 focus:ring-indigo-500" placeholder="Enter your old password">
+    </div>
+    <div class="mb-6">
+      <label for="newPassword" class="block text-lg font-semibold mb-2">New Password</label>
+      <input type="password" id="newPassword" class="input-field border border-gray-300 p-3 rounded-lg w-1/2 focus:ring-2 focus:ring-indigo-500" placeholder="Enter your new password">
+    </div>
+
+    <!-- Invitation Code -->
+    <div class="mb-6">
+      <label for="invitationCode" class="block text-lg font-semibold mb-2">Invitation Code</label>
+      <div class="flex">
+        <input type="text" id="invitationCode" class="input-field border border-gray-300 p-3 rounded-l-lg w-2/3 focus:ring-2 focus:ring-indigo-500" value="INVITE-CODE-123" readonly>
+        <button id="copyButton" class="bg-indigo-500 text-white p-3 rounded-r-lg hover:bg-indigo-600 focus:outline-none">Copy</button>
+      </div>
+    </div>
+
+    <!-- Court Create Modal Trigger -->
+    <div class="flex justify-start mb-6">
+      <button id="openModalButton" class="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400">Create Court</button>
+    </div>
+
+    <!-- Save Changes Button -->
+    <button id="saveChangesButton" class="bg-blue-500 text-white px-6 py-3 rounded-lg w-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">Save Changes</button>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center hidden">
+    <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+      <h2 class="text-2xl mb-4 font-bold text-center">Create Court</h2>
+      <ul id="courtList" class="mb-4">
+        <!-- Kortlar burada listelenecek -->
+      </ul>
+      <input type="text" id="courtInput" placeholder="New Court Name" class="input-field border border-gray-300 p-3 mb-4 rounded-lg w-full focus:ring-2 focus:ring-indigo-500">
+      <button id="addCourtButton" class="bg-green-500 text-white px-6 py-3 rounded-lg w-full mb-2 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400">Add Court</button>
+      <button id="closeModalButton" class="bg-red-500 text-white px-6 py-3 rounded-lg w-full hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // Modal
+    const openModalButton = document.getElementById('openModalButton');
+    const closeModalButton = document.getElementById('closeModalButton');
+    const modal = document.getElementById('modal');
+    const courtList = document.getElementById('courtList');
+    const addCourtButton = document.getElementById('addCourtButton');
+    const courtInput = document.getElementById('courtInput');
+
+    let courts = [];
+
+    openModalButton.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+      updateCourtList();
+    });
+
+    closeModalButton.addEventListener('click', () => {
+      modal.classList.add('hidden');
+    });
+
+    addCourtButton.addEventListener('click', () => {
+      const courtName = courtInput.value.trim();
+      if (courtName) {
+        courts.push(courtName);
+        courtInput.value = '';
+        updateCourtList();
+      }
+    });
+
+    function updateCourtList() {
+      courtList.innerHTML = '';
+      courts.forEach((court, index) => {
+        const li = document.createElement('li');
+        li.classList.add('flex', 'justify-between', 'items-center', 'mb-2');
+        li.innerHTML = `
+          <span>${court}</span>
+          <button onclick="removeCourt(${index})" class="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
+        `;
+        courtList.appendChild(li);
+      });
+    }
+
+    window.removeCourt = function(index) {
+      courts.splice(index, 1);
+      updateCourtList();
+    };
+
+    // Copy Invitation Code
+    const copyButton = document.getElementById('copyButton');
+    const invitationCode = document.getElementById('invitationCode');
+
+    copyButton.addEventListener('click', () => {
+      navigator.clipboard.writeText(invitationCode.value).then(() => {
+        alert('Invitation code copied to clipboard!');
+      });
+    });
+
+    // Save Changes
+    const saveChangesButton = document.getElementById('saveChangesButton');
+    saveChangesButton.addEventListener('click', () => {
+      const username = document.getElementById('username').value;
+      const email = document.getElementById('email').value;
+      const oldPassword = document.getElementById('oldPassword').value;
+      const newPassword = document.getElementById('newPassword').value;
+
+      // Here you can add your logic to save changes
+      console.log('Saving changes:', { username, email, oldPassword, newPassword });
+      alert('Changes saved successfully!');
+    });
+  </script>
 </body>
 </html>
