@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
-
+  <!--<script src="https://cdn.jsdelivr.net/npm/@preline/accordion@2.3.0/index.min.js"></script>-->
 </head>
 
 <body class="bg-gray-100">
@@ -13,56 +13,52 @@
   <div class=" mb-4">
     <div class="sm:hidden">
       <label for="Tab" class="sr-only">Tab</label>
-  
+
       <select id="Tab" class="w-full rounded-md border-gray-200">
         <option selected>Takvim</option>
         <option>Ayarlar</option>
 
       </select>
     </div>
-  
+
     <div class="ml-36 mb-6 mt-4">
 
-      
-
-<div>
-  <div class="sm:hidden">
-    <label for="Tab" class="sr-only">Tab</label>
-
-    <select id="Tab" class="w-full rounded-md border-gray-200">
-      <option selected>Takvim</option>
-      <option>Ayarlar</option>
-    </select>
-  </div>
-
-  <div class="hidden sm:block">
-    <nav class="flex gap-6" aria-label="Tabs">
-      <a
-        href="index.html"
-        class="shrink-0 rounded-lg p-2 text-xl font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-      >
-        Takvim
-      </a>
-
-      <a
-        href="account.html"
-        class="shrink-0 rounded-lg p-2 text-xl font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-      >
-        Ayarlar
-      </a>
 
 
-    </nav>
-  </div>
-</div>
+      <div>
+        <div class="sm:hidden">
+          <label for="Tab" class="sr-only">Tab</label>
+
+          <select id="Tab" class="w-full rounded-md border-gray-200">
+            <option selected>Takvim</option>
+            <option>Ayarlar</option>
+          </select>
+        </div>
+
+        <div class="hidden sm:block">
+          <nav class="flex gap-6" aria-label="Tabs">
+            <a href="index.html"
+              class="shrink-0 rounded-lg p-2 text-xl font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700">
+              Takvim
+            </a>
+
+            <a href="account.html"
+              class="shrink-0 rounded-lg p-2 text-xl font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700">
+              Ayarlar
+            </a>
 
 
-
-
-
-
-
+          </nav>
+        </div>
       </div>
+
+
+
+
+
+
+
+    </div>
 
   </div>
   <div class="mt-12 bg-gray-100 flex items-start justify-start">
@@ -131,10 +127,6 @@
         <label for="court" class="block mb-2 text-sm font-medium text-black mt-4">Kort seçiniz</label>
         <select id="court"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <option value="US">Kapali kort 2</option>
-          <option value="CA">Canada</option>
-          <option value="FR">France</option>
-          <option value="DE">Germany</option>
         </select>
         <div class="mt-4">
           <label for="message" class="block mb-2 text-sm font-medium text-black">Note</label>
@@ -148,14 +140,14 @@
         </div>
       </div>
     </div>
-    
+
   </div>
 
 
 
 
 
-
+  <!--
   <div class="max-w-screen-md w-8/12 p-10  mx-auto hs-accordion-group">
     <div class="hs-accordion active" id="hs-basic-heading-one">
       <button class="hs-accordion-toggle hs-accordion-active:text-blue-600 py-3 inline-flex items-center gap-x-3 w-full font-semibold text-start text-gray-800 hover:text-gray-500 rounded-lg disabled:opacity-50 disabled:pointer-events-none" aria-controls="hs-basic-collapse-one">
@@ -210,14 +202,18 @@
         </p>
       </div>
     </div>
-  </div>  
-  <script src="https://cdn.jsdelivr.net/npm/@preline/accordion@2.3.0/index.min.js"></script>
+  </div>  -->
+
+  <div class="max-w-screen-md w-8/12 p-10  mx-auto hs-accordion-group" id="accordionContainer">
+    <!-- Accordion content will be inserted here -->
+  </div>
 
 
 
 
 
-  
+
+
   <script>
     // Function to generate the calendar for a specific month and year
     function generateCalendar(year, month) {
@@ -262,7 +258,7 @@
         // Check if this date is the current date
         const currentDate = new Date();
         if (year === currentDate.getFullYear() && month === currentDate.getMonth() && day === currentDate.getDate()) {
-          dayElement.classList.add('bg-blue-500', 'text-white'); // Add classes for the indicator
+          //dayElement.classList.add('bg-blue-500', 'text-white'); // Add classes for the indicator
         }
 
         calendarElement.appendChild(dayElement);
@@ -274,36 +270,42 @@
     let currentYear = currentDate.getFullYear();
     let currentMonth = currentDate.getMonth();
     generateCalendar(currentYear, currentMonth);
+    fetchBookings(currentYear, currentMonth);
 
     // Event listeners for previous and next month buttons
-    document.getElementById('prevMonth').addEventListener('click', () => {
+    document.getElementById('prevMonth').addEventListener('click', async () => {
       currentMonth--;
       if (currentMonth < 0) {
         currentMonth = 11;
         currentYear--;
       }
+      await fetchBookings(currentYear, currentMonth);
       generateCalendar(currentYear, currentMonth);
     });
 
-    document.getElementById('nextMonth').addEventListener('click', () => {
+    document.getElementById('nextMonth').addEventListener('click', async () => {
       currentMonth++;
       if (currentMonth > 11) {
         currentMonth = 0;
         currentYear++;
       }
+      await fetchBookings(currentYear, currentMonth);
       generateCalendar(currentYear, currentMonth);
     });
 
-    let formattedDate = '';
+    let formattedDate
+    let selectedDate
     const calendar = document.getElementById('calendar');
 
     calendar.addEventListener('click', (event) => {
       const dayElement = event.target;
       if (dayElement.classList.contains('cursor-pointer')) {
         const day = parseInt(dayElement.innerText);
-        const selectedDate = new Date(currentYear, currentMonth, day);
+        selectedDate = new Date(currentYear, currentMonth, day);
+        console.log(selectedDate);
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         formattedDate = selectedDate.toLocaleDateString(undefined, options);
+        showBookingsForDay(selectedDate);
 
         document.querySelectorAll('.cursor-pointer').forEach(el => {
           el.classList.remove('bg-blue-500', 'text-white');
@@ -313,19 +315,139 @@
       }
     });
 
+    let bookings = [];
+    async function fetchBookings(year, month) {
+      const apiUrl = `http://127.0.0.1:10000/api/schedule?year=${year}&month=${month + 1}`;
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+      bookings = data; // Store the fetched bookings data
+
+      
+      const courtSelect = document.getElementById('court');
+      courtSelect.innerHTML = '';
+      bookings.courts.forEach(function (court) {
+        const option = document.createElement('option');
+        option.value = court;
+        option.textContent = court;
+        courtSelect.appendChild(option);
+      });
+    }
+
+
+    function showBookingsForDay(selectedDate) {
+      const accordionContainer = document.getElementById('accordionContainer');
+      accordionContainer.innerHTML = '';
+      console.log(selectedDate);
+      //const time = new Date(booking.s_time);
+      //const bookingsForDay = Object.values(bookings.bookings).filter(booking => booking.s_time  === selectedDate.getDate());
+
+
+      const bookingsForDay = Object.values(bookings.bookings).filter(booking => {
+
+        const bookingDate = new Date(booking.s_time);
+        console.log(bookingDate);
+        return bookingDate.getDate() === selectedDate.getDate();
+      });
+      if (bookingsForDay.length === 0) {
+        accordionContainer.innerHTML = '<p class="text-center text-gray-500">No bookings for this day.</p>';
+        return;
+      }
+      console.log(bookingsForDay);
+      bookingsForDay.forEach((booking, index) => {
+        console.log(booking);
+        console.log(booking);
+        const accordionItem = document.createElement('div');
+        accordionItem.className = 'hs-accordion';
+
+        const e_dateObj = new Date(booking.e_time);
+
+        const e_hour = e_dateObj.getHours(); 
+        let e_minute = e_dateObj.getMinutes(); 
+        if (e_minute < 10) { e_minute = '0' + e_minute;}
+
+        const s_dateObj = new Date(booking.s_time);
+
+        const s_hour = s_dateObj.getHours(); 
+        let s_minute = s_dateObj.getMinutes(); 
+        if (s_minute < 10) { s_minute = '0' + s_minute;}
+
+        const accordionHeader = document.createElement('button');
+        accordionHeader.className = 'hs-accordion-toggle hs-accordion-active:text-blue-600 py-3 inline-flex items-center gap-x-3 w-full font-semibold text-start text-gray-800 hover:text-gray-500 rounded-lg disabled:opacity-50 disabled:pointer-events-none';
+        accordionHeader.innerHTML = `
+
+              
+              <svg class="hs-accordion-active:hidden block size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14"></path>
+                <path d="M12 5v14"></path>
+              </svg>
+              <svg class="hs-accordion-active:block hidden size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14"></path>
+              </svg>
+              <p class="text-lg	">${s_hour}:${s_minute} - ${e_hour}:${e_minute} arasinda kort dolu</p>
+
+          
+
+
+        
+        `;
+
+        const accordionBody = document.createElement('div');
+        accordionBody.className = 'hs-accordion-content w-full overflow-hidden transition-[height] duration-300';
+
+        const accordionText = document.createElement('p');
+        accordionText.className = 'text-gray-800';
+        accordionText.innerHTML = booking.note;
+
+        accordionBody.appendChild(accordionText);
+        accordionItem.appendChild(accordionHeader);
+        accordionItem.appendChild(accordionBody);
+        accordionContainer.appendChild(accordionItem);
+        accordionHeader.addEventListener('click', () => {
+          const isOpen = accordionItem.classList.contains('active');
+
+          if (isOpen) {
+            // Akordeon kapanacak
+            accordionItem.classList.remove('active');
+            accordionBody.style.maxHeight = '0px';
+          } else {
+            // Akordeon açılacak
+            accordionItem.classList.add('active');
+            accordionBody.style.maxHeight = accordionBody.scrollHeight + 'px';
+          }
+          accordionHeader.querySelectorAll('svg').forEach(svg => {
+        svg.classList.toggle('hidden');
+        svg.classList.toggle('block');
+    });
+
+        });
+
+
+      });
+
+    }
+
+
+
+
+
+
+
     document.getElementById('submit').addEventListener('click', () => {
       const startTime = document.getElementById('start-time').value;
       const endTime = document.getElementById('end-time').value;
       const note = document.getElementById('message').value;
+      const court = document.getElementById('court').value;
 
+      console.log(formattedDate);
       const data = {
-        date: formattedDate,
+        date: { "day": selectedDate.getDate(), "month": selectedDate.getMonth(), "year": selectedDate.getFullYear() },
         startTime: startTime,
         endTime: endTime,
-        note: note
+        note: note,
+        court: court
       };
-
-      fetch('https://xxx.com/api', {
+      console.log(data);
+      fetch('http://127.0.0.1:10000/api/schedule', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -340,7 +462,16 @@
           console.error('Error:', error);
         });
     });
+
   </script>
+
+<style>
+  .hs-accordion-content {
+     max-height: 0;
+     overflow: hidden;
+     transition: max-height 0.3s ease-out; /* İstenen süreyi ve geçiş efektini buradan ayarlayabilirsiniz */
+ }
+</style>
 </body>
 
 </html>

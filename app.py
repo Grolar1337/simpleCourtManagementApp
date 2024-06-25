@@ -3,6 +3,7 @@ from sanic.log import logger
 from tortoise.contrib.sanic import register_tortoise
 import random
 import string
+import os
 
 from user import user
 from schedule import schedule
@@ -12,8 +13,9 @@ app= Sanic("app")
 
 app.static('/', './frontend/index.html')
 
-app.config.ADMIN_CODE= ''.join(random.choices(string.ascii_uppercase + string.digits, k=24))
-logger.info('Here is your admin code: '+app.config.ADMIN_CODE)
+
+os.environ["SANIC_ADMIN_CODE"] = ''.join(random.choices(string.ascii_uppercase + string.digits, k=24))
+logger.info('Here is your admin code: '+ os.environ["SANIC_ADMIN_CODE"])
 #https://sanic.dev/en/guide/running/configuration.html#loading
 
 

@@ -6,6 +6,7 @@ import string
 from models import User, salt
 from utils import *
 
+
 user = Blueprint("user", url_prefix="")
 
 
@@ -16,9 +17,9 @@ async def Login(request):
     email= request.json.get("email")
     password= request.json.get("password")
     
-    user= User.get_or_none(email=email)
+    user= await User.get_or_none(email=email)
 
-    if not user: return json({"status":"error", "message": "Email bulunamadı"})
+    if not user: return html("Email bulunamadı")
 
     if bcrypt.checkpw(password.encode(), user.password):
         r = html('''
@@ -46,11 +47,13 @@ async def Login(request):
         r.add_cookie(
             "jwt",
             encodeJWT({"id": str(user.id), "email": user.email, "admin": user.admin},expiration),
-            domain="api.basecoll.link",
+            domain=request.app.config.INSPECTOR_HOST,
             httponly=True,
             samesite="none"
         )
-        return json(r)
+        return r
+    else:
+        return html("Hatali sifre")
 
 
 @user.post("/register")
@@ -63,21 +66,24 @@ async def Register(request):
     user= await User.get_or_none(email=email)
     if user: return json({"status":"error", "message": "Email bir hesaba kayitli."})
 
-    validator = Validator(email, username, password)
+
+    validator = Validator(username, email, password)
     result = validator.validate()
     if not result['username']: return json({"status":"error", "message": "Isminiz sadece harf ve sayi icerebilir."})
     if not result['email']: return json({"status":"error", "message": "Gecersiz e-posta adresi girdiniz."})
     if not result['password']: return json({"status":"error", "message": "Şifreniz en az 8 karakter uzunluğunda olmali ve en az bir harf ile bir rakam içermeli."})
+    
+    password= bcrypt.hashpw(password.encode(), salt)
 
-    if user.config.ADMIN_CODE == invitation:
-        await User.create(email=email, username=username, password=password)
+    if request.app.config.ADMIN_CODE == invitation:
+        await User.create(email=email, username=username, password=password, admin= True)
         return json({"status":"ok", "message": "Başarıyla admin olarak kayit oldunuz."})
 
     user= await User.get_or_none(invitation=invitation)
     if not user: return json({"status":"error", "message": "Davet kodunuz gecersiz."})
     else: await user(invitation=''.join(random.choices(string.ascii_uppercase + string.digits, k=16))).save()
 
-    await User.create(email=email, username=username, password=password)
+    await User.create(email=email, username=username, password=password, admin= False)
 
     return json({"status":"ok", "message": "Başarıyla kayit oldunuz"})
 
